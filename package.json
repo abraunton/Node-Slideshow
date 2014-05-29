@@ -1,0 +1,12 @@
+{
+	"name": "Node-Slideshow",
+	"version": "0.1",
+
+	"description": "A basic real time slideshow system using nodejs",
+	"author": "Alex Braunton <alex@alexbraunton.co.uk>",
+
+	"dependencies": {
+		"express": "*",
+		"socket.io": "*"
+	}
+}
