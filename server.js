@@ -4,8 +4,8 @@ var express = require('express');
 var app = express();
 var server = app.listen(8080);
 var io = require('socket.io').listen(server);
-var roomCollection = new Array();
-roomCollection = ['test'];
+var roomCollection = ['test','admin'];
+
 var contains = function(arrayName, valueName) {
 	for (var i = 0; i < arrayName.length; i++) {
 		if(arrayName[i] === valueName) {
@@ -36,17 +36,35 @@ app.get('/create/new', function (req, res) {
 	};
 
 	// Check if the Room name is in use
-	contains(roomCollection, req.query.RoomName);
+	if(contains(roomCollection, req.query.RoomName) === false) {
+		res.send("Room created succesfully!");
+		console.log(req.query.RoomName + " created!");
+		roomCollection.push(req.query.RoomName);
+	} else {
+		res.send("Room Name already taken, please choose another");
+	}
 
 });
 
 // Handle rooms for multiple slideshow, use socketio rooms + maybe a database
 
 app.get('/room/:id?', function(req, res) {
-	if (req.params.id) {
-		res.send("Welcome to Room: " + req.params.id);
+
+	if(contains(roomCollection, req.query.id) === false) {
+		// Room exsists, register user to room with socketio
+		res.send("Room does not exsist - create a new one here!");
 	} else {
-		res.send("Please enter a Room number/name or search here!");
+		res.send("Welcome to Room: " + req.params.id);
 	}
+
 });
 
+app.get('/admin', function (req, res) {
+	var roomList = '';
+
+	for (var i = roomCollection.length - 1; i >= 0; i--) {
+		roomList += roomCollection[i] + '<br />';
+	};
+
+	res.send(roomList);
+});
