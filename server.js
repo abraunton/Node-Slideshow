@@ -50,7 +50,7 @@ app.get('/create/new', function (req, res) {
 
 app.get('/room/:id?', function(req, res) {
 
-	if(contains(roomCollection, req.query.id) === false) {
+	if(contains(roomCollection, req.params.id) === false) {
 		// Room exsists, register user to room with socketio
 		res.send("Room does not exsist - create a new one here!");
 	} else {
@@ -63,7 +63,7 @@ app.get('/admin', function (req, res) {
 	var roomList = '';
 
 	for (var i = roomCollection.length - 1; i >= 0; i--) {
-		roomList += roomCollection[i] + '<br />';
+		roomList += '<a href="/room/' + roomCollection[i] + '">' + roomCollection[i] + '</a><br />';
 	};
 
 	res.send(roomList);
