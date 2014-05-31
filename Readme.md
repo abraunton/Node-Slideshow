@@ -13,4 +13,8 @@ The project is currently in pre-alpha stage, therefore there is no system. When 
 it will be usable. Here is a list of current work;
 
 * Directory Structure
-* 
+* Basic authentication (for room admin)
+* Customization page
+* Search page
+* All online rooms page
+
